@@ -1,0 +1,295 @@
+from finsell.cup_handle_score import score_cup_and_handle
+
+score = score_cup_and_handle(df, order=10)
+
+if score.depth_score > 0.7 and score.shape_score > 0.7:
+    if -1.5 < score.proximity_score < 0.5:
+        print("Strong cup & handle forming — watch for breakout")
+    elif score.proximity_score > 1.5:
+        print("Pattern confirmed but may be late")
+
+-----------------------
+
+from finsell.fundamentals import earnings_growth_score
+
+# quarterly EPS values oldest→newest (need 5+ for YoY comparison)
+quarterly = [0.80, 0.85, 0.90, 0.82, 1.04, 1.10, 1.17, 1.07]
+# annual EPS oldest→newest
+annual = [3.20, 4.00, 5.10, 6.40]
+
+score = earnings_growth_score(quarterly, annual)
+
+
+
+-----------------------
+
+from finsell.patterns import detect_dead_cat_bounce
+
+bounces = detect_dead_cat_bounce(df, drop_pct_min=0.15)
+for b in bounces:
+    status = "CONFIRMED" if b["confirmed"] else "forming"
+    print(f"Drop {b['drop_pct']:.1%} on {b['drop_low_idx'].date()}, "
+          f"bounced {b['bounce_retrace_pct']:.1%} — {status}")
+
+
+
+-----------------------
+from finsell.patterns import detect_cup_and_handle
+
+patterns = detect_cup_and_handle(df, order=10)
+for p in patterns:
+    print(f"Cup: {p['left_rim_idx'].date()} → {p['right_rim_idx'].date()}, "
+          f"depth={p['cup_depth_pct']:.1%}, handle_low={p['handle_low']}")
+
+
+
+
+
+Score	Range	Meaning
+depth_score	0.0–1.0	Peaks at 12–20% retracement (ideal cup). Too shallow or too deep scores lower.
+shape_score	0.0–1.0	Roundedness + symmetry + rim evenness. V-shapes score low, classic U-shapes score high.
+proximity_score	-3.0 to +3.0	Negative = still forming (watch for it). ~0 = at breakout. Positive = past breakout (too late). Each unit = 1/3 of the cup's length in time.
+
+-----------------------
+from finsell.cup_handle_score import score_pivot_buy
+
+result = score_pivot_buy(df, order=10)
+print(f"Pivot: ${result.pivot_price:.2f}")
+print(f"Score: {result.score:.2f} (price={result.price_score:.2f}, vol={result.volume_score:.2f})")
+print(f"Volume ratio: {result.volume_ratio:.1f}x average")
+
+The function lives in finsell/cup_handle_score.py. Score bands:
+
+0.0 — no signal (price below pivot or weak volume)
+~1.0 — textbook entry ($0.10 above handle peak + 40-50% volume surge)
+→ 2.0 — exceptional breakout (tighter price positioning + volume 100%+ above average)The function lives in finsell/cup_handle_score.py. Score bands:
+0.0 — no signal (price below pivot or weak volume)
+~1.0 — textbook entry ($0.10 above handle peak + 40-50% volume surge)
+→ 2.0 — exceptional breakout (tighter price positioning + volume 100%+ above average)
+
+
+-----------------------
+from finsell.indicators import ema5, sma50_sma200
+
+fast = ema5(df)              # Series: EMA_5
+slow = sma50_sma200(df)      # DataFrame: SMA_50, SMA_200
+
+
+
+
+-----------------------
+from finsell.distribution import detect_distribution_days
+
+sig = detect_distribution_days(df)
+
+print(f"Distribution days (last 25 sessions): {sig.cluster_count}")
+print(f"Signal strength: {sig.signal_strength:.2f}")
+print(f"Latest bar stalling: {sig.is_stalling}")
+
+if sig.signal_strength >= 1.0:
+    print("WARNING: Heavy distribution — potential market top")
+elif sig.signal_strength >= 0.5:
+    print("CAUTION: Distribution accumulating")    
+
+
+0.0 = no pressure, ~1.0 = 4-5 days (caution), →2.0 = 6+ days (danger/top)
+Boosts signal when distribution days are tightly clustered (3+ in last 5 bars) or multiple stall days present
+
+-----------------------
+from finsell.indicators import golden_cross_indicator
+
+gc = golden_cross_indicator(df, lookback=40)
+
+if -0.2 < gc.iloc[-1] < 0:
+    print("Golden cross approaching — watch for entry")
+elif gc.iloc[-1] == 0:
+    print("Golden cross NOW")
+elif 0 < gc.iloc[-1] < 0.3:
+    print("Golden cross just fired — still early")
+
+The lookback parameter controls the time scale: at lookback=40, the indicator goes from -1 (40 bars before) to +1 (40 bars after). Adjust to match your timeframe — use 50 for daily charts, 20 for faster signals.
+
+
+
+-----------------------
+from finsell.signals import trailing_stop_signal
+
+stop = trailing_stop_signal(df)
+
+if stop.iloc[-1] >= 0.7:
+    print("STOP — price below slow EMA, exit position")
+elif stop.iloc[-1] >= 0.4:
+    print("CAUTION — price breaking fast EMA, tighten stop")
+else:
+    print("Safe — price above both EMAs")    
+
+
+The zones:
+
+0.0–0.2 — price above 10 EMA, no pressure
+0.2–0.7 — price between 10 and 21 EMA (fast EMA broken, slow holding)
+0.7–1.0 — price below 21 EMA, stop triggered, severity increasing
+
+
+
+------------------------
+from finsell.composite import composite_rating_score
+
+score = composite_rating_score("AAPL")
+
+The industry group RS uses the sector ETFs (XLK, XLV, XLF, etc.) as you suggested — maps each stock's sector to the corresponding ETF and ranks performance vs SPY.
+
+
+-----------------------
+from finsell.pyramiding import score_flat_base, score_ma_support
+from finsell.data import fetch_ohlcv
+
+df = fetch_ohlcv("MSFT", period="6mo")
+fb = score_flat_base(df)   # fb.score, fb.quality, fb.details
+ma = score_ma_support(df)  # ma.score, ma.quality, ma.details
+
+score_flat_base(df) — Secondary base detection for pyramiding
+
+Score	Meaning
+-1.0	Consolidation just starting
+-0.5	Midway through base formation
+0.0	At the breakout point
++0.5 to +1.0	Past breakout, still actionable
+
+
+-----------------------
+from finsell.climax_top import score_climax_top
+from finsell.data import fetch_ohlcv
+
+df = fetch_ohlcv("SMCI", period="2y")
+ct = score_climax_top(df)
+# ct.score=0.3, ct.quality=0.74 → at peak, showing exhaustion
+
+Criteria matched: Stock advances many months → then 25-50%+ in 1-3 weeks → volume spikes → ranges widen → exhaustion.
+
+
+-----------------------
+
+
+distribution days
+
+-----------------------
+from finsell.distribution_days import score_distribution_days
+from finsell.data import fetch_ohlcv
+
+# Index
+spy = fetch_ohlcv("SPY", period="3mo")
+dd = score_distribution_days(spy)
+
+# Individual stock
+aapl = fetch_ohlcv("AAPL", period="3mo")
+dd = score_distribution_days(aapl)
+
+# dd.score, dd.count, dd.days (list with date/pct/vol for each), dd.stalling_days
+
+score_distribution_days(df) — Same function works for stocks or indices (just pass the relevant OHLCV data)
+
+Score	Count	Meaning
+-1.0	0	Clean accumulation
+-0.5	1-2	Normal churn
+0.0	3	Watch list
++0.5	4-5	Elevated selling pressure
++1.0	6+	Heavy distribution (danger)
+What it detects:
+
+Distribution days: Close down ≥0.2% on higher volume than prior day
+Stalling days: Tiny gain (<0.2%) on 25%+ above-average volume (selling into strength)
+Clustering: Days bunched together add a severity bonus
+Rolling 25-day window (IBD standard = ~5 weeks)
+
+-----------------------
+from finsell.broken_trend import score_broken_trend
+from finsell.data import fetch_ohlcv
+
+df = fetch_ohlcv("SPY", period="2y")
+bt = score_broken_trend(df)
+# bt.score, bt.trendline_break, bt.ma200_declining, bt.details
+
+score_broken_trend(df) — Detects two structural bearish signals
+
+Score	Meaning
+-1.0	Trend firmly intact, well above trendline + MA200 rising
+-0.5	Approaching trendline, or MA200 flattening
+0.0	Testing the trendline support
++0.5	Closed below trendline OR MA200 turning down
++1.0	Both confirmed: below trendline + MA200 declining
+Two independent signals tracked:
+
+Uptrend line break — Fits a line along ascending swing lows over 200 bars; checks if price (especially weekly close) has broken below
+200-day MA turning down — Slope of MA200 over last 20 bars; negative slope = structural damage
+Bonus flags:
+
+trendline_break (bool) — direct answer: is the trend broken?
+ma200_declining (bool) — is the 200-day MA slope negative?
+Weekly close confirmation adds conviction
+
+
+-----------------------
+from finsell.overbought import score_overbought
+from finsell.data import fetch_ohlcv
+
+df = fetch_ohlcv("AAPL", period="3mo")
+ob = score_overbought(df)
+# ob.score=0.95, ob.rsi=79.0, ob.rsi_slope=0.46, bars_overbought=15
+
+score_overbought(df) — Short-term profit-locking signal
+
+Score	RSI	Action
+-1.0	~30	Oversold, no sell pressure
+-0.5	~50	Neutral
+0.0	~65	Warming up, watch
++0.5	70	Overbought — consider trimming
++1.0	80+	Extremely stretched — lock profits
+Extra nuance from RSI slope:
+
+RSI declining while overbought → more urgent (momentum fading)
+RSI still climbing while overbought → slightly less urgent
+Also tracks: bars_overbought — consecutive bars RSI has been above 70
+-----------------------
+from finsell.purchase_timing import score_purchase_timing
+
+df = fetch_ohlcv("MSFT", period="6mo")
+pt = score_purchase_timing(df, cost_basis=440.0)
+# pt.score=0.61, pt.best_signal="three_weeks_tight + auto_addon"
+# pt.sub_scores shows all individual signals
+
+Inputs required:
+
+df — OHLCV data (6mo+ daily recommended)
+cost_basis — your weighted average cost per share
+Five sub-signals combined:
+
+Signal	What it detects
+ma_support	Pullback to 50-day MA, bounce on volume
+three_weeks_tight	3 consecutive weekly closes within ~1.5%
+flat_base	5+ week sideways, <15% correction
+ascending_base	3 pullbacks (10-20%) with rising lows
+auto_addon	Stock 2-2.5% above your cost basis
+
+Logic: Uses the best sub-signal (any one pattern is enough). When auto-addon AND a pattern both confirm, they amplify each other.
+
+Score	Meaning
+-1.0	No patterns, extended, bad time to add
+-0.5	Neutral, no clear signal
+0.0	Conditions forming, watch
++0.5	Good add opportunity
++1.0	Strong add signal (pattern + momentum + volume)
+Also available standalone:
+
+score_three_weeks_tight(df) — Three-Weeks-Tight pattern
+score_ascending_base(df) — Ascending base pattern
+
+-----------------------
+
+
+
+-----------------------
+
+
+
+-----------------------

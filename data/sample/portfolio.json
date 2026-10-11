@@ -1,0 +1,62 @@
+{
+  "holdings": [
+    {
+      "ticker": "CASH",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },
+    {
+      "ticker": "CCL",
+      "shares": 100,
+      "wac": 19.12448,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-08-10"
+    },
+    {
+      "ticker": "ENB.TO",
+      "shares": 63.2733,
+      "wac": 62.246477,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-08-10"
+    },
+    {
+      "ticker": "RENG.NE",
+      "shares": 122.071,
+      "wac": 28.67192,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-08-10"
+    },
+    {
+      "ticker": "RY.TO",
+      "shares": 11.1174,
+      "wac": 295.262381,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-08-10"
+    },
+    {
+      "ticker": "XUS.TO",
+      "shares": 87.8063,
+      "wac": 56.318396,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-08-10"
+    }
+  ],
+  "lru": [
+    "CCL",
+    "CASH" 
+  ]
+}

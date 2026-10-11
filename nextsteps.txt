@@ -1,0 +1,28 @@
+OK, this is a good one-off tool, good for research. 
+Let's look to make this a more comprehensive tool. 
+We should be able to:
+1. research a stock. Enter it's ticker, choose sector (if not provided by yahoo), and us/canadian. see the graphs, indicators.
+2. keep a lru.
+3. Compare 2 stocks. choose from lru or enter new.
+4. maintain a list of current holdings and watchers. user can select from current list, or lru, or add a new. Enter average cost and number of shares. We can keep history or not.
+    a. a watcher is an added holding with 0 purchase. 
+    b. we should be able to toggle on/off holdings/watchers or both
+5. Stored in file. Decide XML, JSON, CSV? Read on load time.
+6. Current holdings mode. 
+    a. Show list of holdings in grid. On each row, a horizontal bar meter for each 4 signals.
+    b. Market pulse.
+    c. Summary 3 summaries, list of stocks to 1: Sell 2: Buy More 3: Watchers buy
+        i: summaries are only strong buy/sell/buy more signals. It's to draw attention to current cup and handle, golden cross, or some other timed indicator.
+        ii: user will use this as the first place to look. Are there any breaking oppertunities, are there any potential stock crashes/drops looming.
+    d. Allow user to select any holding to see details below the grid.
+    e. Grid shows breakdown of indicators, pattern scores, and signals.
+
+So, a few modes.  
+-   Current holdings
+-   research
+-   compare
+
+I suggest Current holdings as default\
+
+Am I missing anything? Suggestions? Questions? Concerns?
+

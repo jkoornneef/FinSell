@@ -1,0 +1,151 @@
+{
+  "holdings": [
+    {
+      "ticker": "CASH",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },
+    {
+      "ticker": "XLK",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLF",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLV",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLY",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLP",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLI",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLE",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLU",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLRE",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLC",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "XLB",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "SPY",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "DIA",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "^GSPTSE",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    },    
+    {
+      "ticker": "^IXIC",
+      "shares": 0.0,
+      "wac": 1.0,
+      "sector": "",
+      "market_override": "auto",
+      "notes": "",
+      "added": "2026-06-16"
+    }   
+
+  ],
+  "lru": [
+  ]
+}
