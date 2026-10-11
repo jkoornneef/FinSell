@@ -10,7 +10,7 @@ for %%a in (%*) do (
         ) else set "EXTRA_ARGS=%EXTRA_ARGS% %%a"
     )
 )
-python "%~dp0finsell\dashboard_v2.py" --portfolio=""L:\FinSell\data\sample\portfolio.json"" %EXTRA_ARGS%
+python "%~dp0finsell\dashboard_v2.py" --portfolio="".\data\sample\portfolio.json"" %EXTRA_ARGS%
 
 
 rem examples:

@@ -27,12 +27,19 @@ If you do find a bug or have suggestions for improvement, please feel free to op
 - **Interactive Dashboard**: A Dash/Plotly-based visual interface with multiple modes:
     - **Holdings**: Overview of your portfolio.
     - **Research**: Deep dive into specific tickers.
-    - **Compare**: Side-by-side analysis of multiple assets.
     - **Account**: High-level performance metrics.
+    - **Compare**: Side-by-side analysis of multiple assets.
+
+## Interactive Dashboard Screenshots
+
+![Overview](images/FinSellOverview.png)
+
+![Holdings](images/FinSellAccount.png)
+
+![Research](images/FinSellResearch.png)
 
 ## Installation
-
-Ensure you have Python 3.10+ installed. Install the dependencies using `pip` (or use the `install.bat` script if available in your environment):
+ Install the dependencies using `pip` (or use the `install.bat` script if available in your environment):
 
 ```bash
 pip install -e .
