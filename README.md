@@ -55,6 +55,8 @@ The project provides several entry points for analysis and dashboarding.
 ```bash
 python -m finsell.dashboard_v2 --portfolio=".\data\sample\portfolio.json" --port 8050
 ```
+**Once the server is running, open your web browser and navigate to http://127.0.0.1:8050/**
+
 *There is a sample in dashboard-sample.bat for running the dashboard with the sample portfolio.*
 
 ### Data Source
